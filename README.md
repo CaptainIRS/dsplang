@@ -8,6 +8,9 @@ DSPLang is a programming language designed for building efficient vector operati
 
 Details about the current implementation can be found [here](./DSPLang.pdf).
 
+![image](https://github.com/user-attachments/assets/a6f8aef6-fb16-453d-a72c-3ed0c06f87de)
+
+
 ## Setup
 
 Clone the repository.
