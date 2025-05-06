@@ -1,0 +1,8 @@
+.vscode
+build
+examples/*.o
+examples/*.so
+examples/stats*
+.cache
+venv
+compile_commands.json

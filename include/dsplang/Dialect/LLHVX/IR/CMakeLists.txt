@@ -1,0 +1,7 @@
+add_mlir_dialect(LLHVX llhvx)
+set(LLVM_TARGET_DEFINITIONS LLHVXOps.td)
+mlir_tablegen(LLHVXOps.h.inc -gen-op-decls)
+mlir_tablegen(LLHVXOps.cpp.inc -gen-op-defs)
+add_public_tablegen_target(LLHVXOpsIncGen)
+mlir_tablegen(MLIRLLHVXConversions.inc -gen-llvmir-conversions)
+add_public_tablegen_target(MLIRLLHVXConversionsIncGen)

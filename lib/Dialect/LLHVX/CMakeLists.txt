@@ -1,0 +1,12 @@
+add_mlir_dialect_library(
+  MLIRLLHVXDialect
+  LLHVXOps.cpp
+  ADDITIONAL_HEADER_DIRS
+  ${CMAKE_CURRENT_BINARY_DIR}
+  DEPENDS
+  LLHVXOpsIncGen
+  LINK_LIBS
+  PUBLIC
+  MLIRIR
+  MLIRPass
+  MLIRInferTypeOpInterface)

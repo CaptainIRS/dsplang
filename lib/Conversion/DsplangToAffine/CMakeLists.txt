@@ -1,0 +1,13 @@
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+add_mlir_conversion_library(
+  MLIRDsplangToAffine
+  LowerDsplangToAffine.cpp
+  ShapeInferencePass.cpp
+  AffineSelectiveVectorizePass.cpp
+  ADDITIONAL_HEADER_DIRS
+  ${CMAKE_CURRENT_BINARY_DIR}
+  DEPENDS
+  DsplangOpsIncGen
+  LINK_LIBS
+  PUBLIC
+  MLIRDsplangDialect)

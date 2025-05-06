@@ -1,0 +1,8 @@
+#include "mlir/IR/PatternBase.td"
+#include "mlir/Dialect/LLVMIR/LLVMOps.td"
+#include "mlir/Dialect/Arith/IR/ArithOps.td"
+#include "mlir/Dialect/Vector/IR/VectorOps.td"
+#include "dsplang/Dialect/HLHVX/IR/HLHVXOps.td"
+#include "dsplang/Dialect/LLHVX/IR/LLHVXOps.td"
+
+#include "dsplang/Conversion/HLHVXToLLHVX/HLHVXToLLHVXGen.pdll"

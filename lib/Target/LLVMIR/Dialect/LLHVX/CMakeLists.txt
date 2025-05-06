@@ -1,0 +1,14 @@
+add_mlir_translation_library(
+  MLIRLLHVXToLLVMIRTranslation
+  LLHVXToLLVMIRTranslation.cpp
+  DEPENDS
+  MLIRLLHVXConversionsIncGen
+  LINK_COMPONENTS
+  Core
+  LINK_LIBS
+  PUBLIC
+  MLIRIR
+  MLIRLLHVXDialect
+  MLIRLLVMDialect
+  MLIRSupport
+  MLIRTargetLLVMIRExport)

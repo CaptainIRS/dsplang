@@ -1,0 +1,140 @@
+diff --git a/build-toolchain.sh b/build-toolchain.sh
+index 2ff2e1f..7a68a24 100755
+--- a/build-toolchain.sh
++++ b/build-toolchain.sh
+@@ -32,7 +32,8 @@ build_llvm_clang_cross() {
+ 		-DCMAKE_INSTALL_PREFIX:PATH=${TOOLCHAIN_INSTALL}/${triple}/ \
+ 		${CMAKE_CCACHE-} \
+ 		-DLLVM_ENABLE_TERMINFO:BOOL=OFF \
+-		-DLLVM_ENABLE_ASSERTIONS:BOOL=ON \
++		-DLLVM_ENABLE_ZSTD:BOOL=OFF \
++		-DLLVM_ENABLE_ASSERTIONS:BOOL=OFF \
+ 		-DLLVM_HOST_TRIPLE=${triple} \
+ 		-DLLVM_TOOL_DSYMUTIL_BUILD:BOOL=OFF \
+ 		-DLLVM_INCLUDE_TESTS:BOOL=OFF \
+@@ -61,15 +62,22 @@ build_llvm_clang() {
+ 		CMAKE_CCACHE="-DLLVM_CCACHE_BUILD:BOOL=ON"
+ 	fi
+ 
++		#-DCMAKE_CXX_FLAGS='-stdlib=libc++ -std=c++17' \
+ 
+ 	CC=clang CXX=clang++ cmake -G Ninja \
+ 		-DCMAKE_BUILD_TYPE=Release \
+ 		-DCMAKE_INSTALL_PREFIX:PATH=${TOOLCHAIN_INSTALL}/x86_64-linux-gnu/ \
+ 		${CMAKE_CCACHE-} \
+ 		-DLLVM_ENABLE_LLD:BOOL=ON \
++		-DLLVM_ENABLE_PROJECTS="mlir;clang;lld" \
++		-DLLVM_EXTERNAL_ELD_SOURCE_DIR=${PWD}/llvm-project/eld \
++		-DLLVM_EXTERNAL_PROJECTS=eld \
++		-DLLVM_BUILD_EXAMPLES:BOOL=ON \
+ 		-DLLVM_ENABLE_LIBCXX:BOOL=ON \
+ 		-DLLVM_ENABLE_TERMINFO:BOOL=OFF \
+-		-DLLVM_ENABLE_ASSERTIONS:BOOL=ON \
++		-DLLVM_ENABLE_ASSERTIONS:BOOL=OFF \
++		-DLLVM_INSTALL_UTILS=ON \
++		-DLLVM_ENABLE_ZSTD:BOOL=OFF \
+ 		-DLLVM_ENABLE_PIC:BOOL=ON \
+ 		-C ./llvm-project/clang/cmake/caches/hexagon-unknown-linux-musl-clang.cmake \
+ 		-C ./llvm-project/clang/cmake/caches/hexagon-unknown-linux-musl-clang-cross.cmake \
+@@ -95,6 +103,7 @@ add_symlinks() {
+ 		ln -sf --relative ${linkdir}/llvm-ranlib ${linkdir}/${triple}-ranlib
+ 		ln -sf --relative ${linkdir}/llvm-config ${linkdir}/${triple}-llvm-config
+ 		ln -sf --relative ${linkdir}/ld.lld ${linkdir}/${triple}-ld.lld
++		ln -sf --relative ${linkdir}/ld.eld ${linkdir}/${triple}-ld.eld
+ 	done
+ 
+ #	ln -sf --relative ${linkdir}/clang ${linkdir}/hexagon-unknown-none-elf-clang
+@@ -128,7 +137,7 @@ build_clang_rt_builtins() {
+ 
+ config_kernel() {
+ 	cd ${BASE}
+-	mkdir obj_linux
++	mkdir -p obj_linux
+ 	cd linux
+ 	make O=../obj_linux ARCH=hexagon \
+ 		CROSS_COMPILE=hexagon-unknown-linux-musl- \
+@@ -163,7 +172,7 @@ build_musl_headers() {
+ 	CC=${TOOLCHAIN_INSTALL}/x86_64-linux-gnu/bin/hexagon-unknown-linux-musl-clang \
+ 		CROSS_COMPILE=hexagon-unknown-linux-musl \
+ 		LIBCC=${HEX_TOOLS_TARGET_BASE}/lib/libclang_rt.builtins-hexagon.a \
+-		CROSS_CFLAGS="-G0 -O0 -mv65 -fno-builtin --target=hexagon-unknown-linux-musl" \
++		CROSS_CFLAGS="-G0 -O0 -mv73 -fno-builtin --target=hexagon-unknown-linux-musl" \
+ 		./configure --target=hexagon --prefix=${HEX_TOOLS_TARGET_BASE}
+ 	PATH=${TOOLCHAIN_INSTALL}/x86_64-linux-gnu/bin/:$PATH make install-headers
+ 
+@@ -307,7 +316,7 @@ fi
+ ccache --show-stats
+ 
+ 
+-MUSL_CFLAGS="-G0 -O0 -mv65 -fno-builtin -mlong-calls --target=hexagon-unknown-linux-musl"
++MUSL_CFLAGS="-G0 -O0 -mv73 -fno-builtin -mlong-calls --target=hexagon-unknown-linux-musl"
+ 
+ # Workaround, 'C()' macro results in switch over bool:
+ MUSL_CFLAGS="${MUSL_CFLAGS} -Wno-switch-bool"
+@@ -324,8 +333,9 @@ python3.8 --version
+ build_llvm_clang
+ 
+ #CROSS_TRIPLES="x86_64-linux-musl aarch64-linux-gnu aarch64-macos"
+-CROSS_TRIPLES="x86_64-linux-musl aarch64-linux-musl"
+-CROSS_TRIPLES_PIC="aarch64-windows-gnu x86_64-windows-gnu"
++#CROSS_TRIPLES="x86_64-linux-musl aarch64-linux-musl"
++CROSS_TRIPLES=""
++CROSS_TRIPLES_PIC=""
+ CROSS_ALL="${CROSS_TRIPLES} ${CROSS_TRIPLES_PIC}"
+ for t in ${CROSS_TRIPLES}
+ do
+diff --git a/build.sh b/build.sh
+new file mode 100755
+index 0000000..766adac
+--- /dev/null
++++ b/build.sh
+@@ -0,0 +1,24 @@
++#!/bin/bash
++
++if [[ "$CONDA_DEFAULT_ENV" == "hexagon" ]]; then
++  echo "Hexagon conda environment is active."
++else
++  echo "Hexagon conda environment is not active."
++  exit 1
++fi
++
++export ARTIFACT_TAG=fork
++export TOOLCHAIN_INSTALL=$PWD/clang+llvm-${ARTIFACT_TAG}-cross-hexagon-unknown-linux-musl
++export ROOT_INSTALL=$PWD/install_rootfs
++export ARTIFACT_BASE=$PWD/artifacts
++export HOST_CLANG_VER="19"
++
++export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include
++
++export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib
++export LIBRARY_PATH=$LD_LIBRARY_PATH
++
++export PKG_CONFIG_PATH=$CONDA_PREFIX/lib/pkgconfig
++export PKG_CONFIG_LIBDIR=$CONDA_PREFIX/lib
++
++./build-toolchain.sh
+diff --git a/get-src-repos.sh b/get-src-repos.sh
+index 37ca64d..061def9 100755
+--- a/get-src-repos.sh
++++ b/get-src-repos.sh
+@@ -10,16 +10,17 @@ MANIFEST_DIR=${2}
+ 
+ git clone -q https://github.com/llvm/llvm-project &
+ git clone -q https://github.com/llvm/llvm-test-suite &
+-git clone --depth=1 -q git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux &
++git clone --depth=1 -q https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux &
+ git clone --depth=1 -q https://github.com/python/cpython &
+-git clone --depth=1 -q git://repo.or.cz/libc-test &
++git clone --depth=1 -q https://repo.or.cz/libc-test &
+ git clone -q https://git.busybox.net/busybox/ &
+ git clone -q https://github.com/quic/buildroot/ &
+ 
+ 
+ git clone -q --branch=hexagon https://github.com/quic/musl &
+ git clone -q https://github.com/quic/hexagonMVM &
+-git clone -q https://github.com/qemu/qemu &
++git clone --branch hexagon-sysemu-25-feb-2025 -q https://github.com/quic/qemu &
++git clone -q https://github.com/qualcomm/eld/ llvm-project/eld/
+ 
+ wait
+ 

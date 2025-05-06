@@ -1,0 +1,78 @@
+#include "mlir/IR/PatternBase.td"
+#include "mlir/Dialect/LLVMIR/LLVMOps.td"
+#include "mlir/Dialect/Arith/IR/ArithOps.td"
+#include "mlir/Dialect/Vector/IR/VectorOps.td"
+#include "dsplang/Dialect/HLHVX/IR/HLHVXOps.td"
+#include "dsplang/Dialect/LLHVX/IR/LLHVXOps.td"
+
+Pattern Rewrite_arith_muli_64xsi16 {
+    let root = op<arith.muli>(arg0: Value, arg1: Value) -> (type<"vector<64 x i16>">);
+
+    rewrite root with {
+        let carg0 = op<vector.bitcast>(arg0) -> (type<"vector<64 x si16>">);
+        let carg1 = op<vector.bitcast>(arg1) -> (type<"vector<64 x si16>">);
+        let result = op<hlhvx.vmpyi.Vh.VhVh>(carg0, carg1) -> (type<"vector<64 x si16>">);
+        let cresult = op<vector.bitcast>(result) -> (type<"vector<64 x i16>">);
+        replace root with cresult;
+    };
+}
+
+Pattern Rewrite_arith_addi_64xsi16 {
+    let root = op<arith.addi>(arg0: Value, arg1: Value) -> (type<"vector<64 x i16>">);
+
+    rewrite root with {
+        let carg0 = op<vector.bitcast>(arg0) -> (type<"vector<64 x si16>">);
+        let carg1 = op<vector.bitcast>(arg1) -> (type<"vector<64 x si16>">);
+        let result = op<hlhvx.vadd.Vh.VhVh>(carg0, carg1) -> (type<"vector<64 x si16>">);
+        let cresult = op<vector.bitcast>(result) -> (type<"vector<64 x i16>">);
+        replace root with cresult;
+    };
+}
+
+Pattern Rewrite_arith_addi_128xsi16 {
+    let root = op<arith.addi>(arg0: Value, arg1: Value) -> (type<"vector<128 x i16>">);
+
+    rewrite root with {
+        let carg0 = op<vector.bitcast>(arg0) -> (type<"vector<128 x si16>">);
+        let carg1 = op<vector.bitcast>(arg1) -> (type<"vector<128 x si16>">);
+        let result = op<hlhvx.vadd.Wh.WhWh>(carg0, carg1) -> (type<"vector<128 x si16>">);
+        let cresult = op<vector.bitcast>(result) -> (type<"vector<128 x i16>">);
+        replace root with cresult;
+    };
+}
+
+Pattern Rewrite_arith_xori {
+    let root = op<arith.xori>(arg0: Value, arg1: Value) -> (resultType: Type);
+
+    rewrite root with {
+        let carg0 = op<vector.bitcast>(arg0) -> (type<"vector<1024 x i1>">);
+        let carg1 = op<vector.bitcast>(arg1) -> (type<"vector<1024 x i1>">);
+        let result = op<hlhvx.vxor.V.VV>(carg0, carg1) -> (type<"vector<1024 x i1>">);
+        let cresult = op<vector.bitcast>(result) -> (resultType);
+        replace root with cresult;
+    };
+}
+
+Pattern Rewrite_arith_andi {
+    let root = op<arith.andi>(arg0: Value, arg1: Value) -> (resultType: Type);
+
+    rewrite root with {
+        let carg0 = op<vector.bitcast>(arg0) -> (type<"vector<1024 x i1>">);
+        let carg1 = op<vector.bitcast>(arg1) -> (type<"vector<1024 x i1>">);
+        let result = op<hlhvx.vand.V.VV>(carg0, carg1) -> (type<"vector<1024 x i1>">);
+        let cresult = op<vector.bitcast>(result) -> (resultType);
+        replace root with cresult;
+    };
+}
+
+Pattern Rewrite_arith_ori {
+    let root = op<arith.ori>(arg0: Value, arg1: Value) -> (resultType: Type);
+
+    rewrite root with {
+        let carg0 = op<vector.bitcast>(arg0) -> (type<"vector<1024 x i1>">);
+        let carg1 = op<vector.bitcast>(arg1) -> (type<"vector<1024 x i1>">);
+        let result = op<hlhvx.vor.V.VV>(carg0, carg1) -> (type<"vector<1024 x i1>">);
+        let cresult = op<vector.bitcast>(result) -> (resultType);
+        replace root with cresult;
+    };
+}

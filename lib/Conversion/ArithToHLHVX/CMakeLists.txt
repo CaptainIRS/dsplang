@@ -1,0 +1,12 @@
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+add_mlir_conversion_library(
+  MLIRArithToHLHVX
+  LowerArithToHLHVXOps.cpp
+  ADDITIONAL_HEADER_DIRS
+  ${CMAKE_CURRENT_BINARY_DIR}
+  DEPENDS
+  ArithToHLHVXIncGen
+  MLIRArithToHLHVXPasses
+  LINK_LIBS
+  PUBLIC
+  MLIRHLHVXDialect)

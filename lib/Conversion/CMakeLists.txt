@@ -1,0 +1,4 @@
+add_subdirectory(HLHVXToLLHVX)
+add_subdirectory(DsplangToAffine)
+add_subdirectory(DsplangToLLVM)
+add_subdirectory(ArithToHLHVX)
