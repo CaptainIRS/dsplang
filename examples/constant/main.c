@@ -1,8 +1,12 @@
 #if __hexagon__
 #include "q6sim_timer.h"
+#include "HAP_perf.h"
 #endif
 #include "stdio.h"
 #include "stdint.h"
+
+#define LOG_TAG         "dsplanglib"      
+#define LOG(...)        printf(LOG_TAG ": " __VA_ARGS__)
 
 #if __hexagon__
 #define RESET_PMU()     __asm__ __volatile__ (" r0 = #0x48 ; trap0(#0); \n" : : : "r0","r1","r2","r3","r4","r5","r6","r7","memory")
@@ -18,9 +22,10 @@ void dsplanglib(
 
 int main() {
 #if __hexagon__
-    long long start_time, total_cycles;
+    long long start_cycles, total_cycles, start_time, end_time, duration;
     RESET_PMU();
-    start_time = READ_PCYCLES();
+    start_time = HAP_perf_get_qtimer_count();
+    start_cycles = READ_PCYCLES();
 #endif
     short data1[70];
     short data2[70];
@@ -33,10 +38,14 @@ int main() {
     uint64_t stride = 1;
     dsplanglib(data1, data1, 0, rank, stride, data2, data2, 0, rank, stride, data3, data3, 0, rank, stride);
 #if __hexagon__
-    total_cycles = READ_PCYCLES() - start_time;
+    total_cycles = READ_PCYCLES() - start_cycles;
+    end_time = HAP_perf_get_qtimer_count();
     DUMP_PMU();
-    printf("Total cycles: %lld\n", total_cycles);
+    LOG("Total cycles: %lld\n", total_cycles);
+    duration = HAP_perf_qtimer_count_to_us(end_time - start_time);
+    LOG("Duration: %lld us\n", duration);
 #endif
+    LOG();
     for (int i = 0; i < 70; i++) {
         printf("%d ", data3[i]);
     }

@@ -36,7 +36,9 @@ build/$(EXP)/main.o: build/$(EXP) $(EXP)/main.c
 	$(LLVM_ROOT)/bin/hexagon-unknown-none-elf-clang \
 		-c $(EXP)/main.c \
 		-o build/$(EXP)/main.o \
-		-I$(HEXAGON_TOOLS)/Tools/target/hexagon/include/
+		-I$(HEXAGON_TOOLS)/Tools/target/hexagon/include/ \
+		-I$(HEXAGON)/incs/ \
+		-I$(HEXAGON)/incs/stddef/
 
 build/$(EXP)/$(EXP)$(IMPL).so: build/$(EXP) build/$(EXP)/$(EXP)$(IMPL).o build/$(EXP)/main.o
 	$(LLVM_ROOT)/bin/hexagon-unknown-none-elf-clang \
@@ -93,6 +95,19 @@ qemu: build/$(EXP)/$(EXP)$(IMPL).so build/$(EXP)/libhexagon.so build/$(EXP)/pmu_
 	$(LLVM_ROOT)/bin/qemu-system-hexagon \
 		-kernel $(HEXAGON)/rtos/qurt/compute$(HEXAGON_ISA)/sdksim_bin/runelf.pbn \
 		-append "$(HEXAGON)/libs/run_main_on_hexagon/ship/hexagon_tool$(HEXAGON_TOOLS_VERSION)_$(HEXAGON_ISA)/run_main_on_hexagon_sim -- ${PWD}/build/$(EXP)/$(EXP)$(IMPL).so"
+	
+device: build/$(EXP)/$(EXP)$(IMPL).so build/$(EXP)/libhexagon.so
+	adb wait-for-device root
+	adb remount
+	adb logcat -c
+	adb shell mkdir -p /data/local/tmp/dsplang
+	adb push build/$(EXP)/$(EXP)$(IMPL).so /data/local/tmp/dsplang/
+	adb push build/$(EXP)/libhexagon.so /data/local/tmp/dsplang/
+	adb push $(HEXAGON)/libs/run_main_on_hexagon/ship/android/run_main_on_hexagon /data/local/tmp/dsplang/
+	adb push $(HEXAGON)/libs/run_main_on_hexagon/ship/hexagon_tool$(HEXAGON_TOOLS_VERSION)_$(HEXAGON_ISA)/librun_main_on_hexagon_skel.so /data/local/tmp/dsplang/
+	adb shell echo "0x1f > /data/local/tmp/dsplang/run_main_on_hexagon.farf"
+	adb shell "export DSP_LIBRARY_PATH=/data/local/tmp/dsplang/; /data/local/tmp/dsplang/run_main_on_hexagon 3 /data/local/tmp/dsplang/$(EXP)$(IMPL).so"
+	adb logcat -d -s "run_main_on_hexagon:*" "adsprpc:*" | grep "dsplanglib: "
 
 dis: build/$(EXP)/$(EXP)$(IMPL).so
 	$(HEXAGON_TOOLS)/Tools/bin/hexagon-llvm-objdump \
