@@ -21,7 +21,7 @@ dependencies:
   - brotli-python=1.1.0=py38h17151c0_1
   - bzip2=1.0.8=h4bc722e_7
   - c-ares=1.34.4=hb9d3cd8_0
-  - ca-certificates=2025.1.31=hbcca054_0
+  - ca-certificates=2025.4.26=hbd8a1cb_0
   - cached-property=1.5.2=hd8ed1ab_1
   - cached_property=1.5.2=pyha770c72_1
   - ccache=4.10.1=h065aff2_0
@@ -128,7 +128,7 @@ dependencies:
   - nest-asyncio=1.6.0=pyhd8ed1ab_0
   - ninja=1.12.1=h297d8ca_0
   - notebook-shim=0.2.4=pyhd8ed1ab_0
-  - openssl=3.5.0=h7b32b05_0
+  - openssl=3.5.0=h7b32b05_1
   - overrides=7.7.0=pyhd8ed1ab_0
   - packaging=24.2=pyhd8ed1ab_2
   - pandocfilters=1.5.0=pyhd8ed1ab_0
@@ -146,6 +146,8 @@ dependencies:
   - psutil=6.0.0=py38hfb59056_0
   - ptyprocess=0.7.0=pyhd3deb0d_0
   - pure_eval=0.2.3=pyhd8ed1ab_0
+  - pybind11=2.13.6=pyh1ec8472_2
+  - pybind11-global=2.13.6=pyh415d2e4_2
   - pycparser=2.22=pyhd8ed1ab_0
   - pygments=2.18.0=pyhd8ed1ab_0
   - pysocks=1.7.1=pyha2e5f31_6
@@ -155,7 +157,6 @@ dependencies:
   - python-json-logger=2.0.7=pyhd8ed1ab_0
   - python_abi=3.8=5_cp38
   - pytz=2024.2=pyhd8ed1ab_0
-  - pyyaml=6.0.2=py38h2019614_0
   - pyzmq=26.2.0=py38h6c80b9a_0
   - readline=8.2=h8c095d6_2
   - referencing=0.35.1=pyhd8ed1ab_0
@@ -199,4 +200,8 @@ dependencies:
   - zstd=1.5.6=ha6fb4c9_0
   - pip:
       - lit==21.0.0.dev0
+      - ml-dtypes==0.2.0
+      - nanobind==2.7.0
+      - numpy==1.24.4
+      - pyyaml==6.0.1
       - tomli==2.2.1

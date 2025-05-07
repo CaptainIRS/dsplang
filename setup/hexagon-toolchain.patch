@@ -1,5 +1,5 @@
 diff --git a/build-toolchain.sh b/build-toolchain.sh
-index 2ff2e1f..7a68a24 100755
+index 2ff2e1f..0bf8840 100755
 --- a/build-toolchain.sh
 +++ b/build-toolchain.sh
 @@ -32,7 +32,8 @@ build_llvm_clang_cross() {
@@ -12,7 +12,7 @@ index 2ff2e1f..7a68a24 100755
  		-DLLVM_HOST_TRIPLE=${triple} \
  		-DLLVM_TOOL_DSYMUTIL_BUILD:BOOL=OFF \
  		-DLLVM_INCLUDE_TESTS:BOOL=OFF \
-@@ -61,15 +62,22 @@ build_llvm_clang() {
+@@ -61,16 +62,24 @@ build_llvm_clang() {
  		CMAKE_CCACHE="-DLLVM_CCACHE_BUILD:BOOL=ON"
  	fi
  
@@ -34,9 +34,11 @@ index 2ff2e1f..7a68a24 100755
 +		-DLLVM_INSTALL_UTILS=ON \
 +		-DLLVM_ENABLE_ZSTD:BOOL=OFF \
  		-DLLVM_ENABLE_PIC:BOOL=ON \
++		-DMLIR_ENABLE_BINDINGS_PYTHON:BOOL=ON \
  		-C ./llvm-project/clang/cmake/caches/hexagon-unknown-linux-musl-clang.cmake \
  		-C ./llvm-project/clang/cmake/caches/hexagon-unknown-linux-musl-clang-cross.cmake \
-@@ -95,6 +103,7 @@ add_symlinks() {
+ 		-B ./obj_llvm \
+@@ -95,6 +104,7 @@ add_symlinks() {
  		ln -sf --relative ${linkdir}/llvm-ranlib ${linkdir}/${triple}-ranlib
  		ln -sf --relative ${linkdir}/llvm-config ${linkdir}/${triple}-llvm-config
  		ln -sf --relative ${linkdir}/ld.lld ${linkdir}/${triple}-ld.lld
@@ -44,7 +46,7 @@ index 2ff2e1f..7a68a24 100755
  	done
  
  #	ln -sf --relative ${linkdir}/clang ${linkdir}/hexagon-unknown-none-elf-clang
-@@ -128,7 +137,7 @@ build_clang_rt_builtins() {
+@@ -128,7 +138,7 @@ build_clang_rt_builtins() {
  
  config_kernel() {
  	cd ${BASE}
@@ -53,7 +55,7 @@ index 2ff2e1f..7a68a24 100755
  	cd linux
  	make O=../obj_linux ARCH=hexagon \
  		CROSS_COMPILE=hexagon-unknown-linux-musl- \
-@@ -163,7 +172,7 @@ build_musl_headers() {
+@@ -163,7 +173,7 @@ build_musl_headers() {
  	CC=${TOOLCHAIN_INSTALL}/x86_64-linux-gnu/bin/hexagon-unknown-linux-musl-clang \
  		CROSS_COMPILE=hexagon-unknown-linux-musl \
  		LIBCC=${HEX_TOOLS_TARGET_BASE}/lib/libclang_rt.builtins-hexagon.a \
@@ -62,7 +64,7 @@ index 2ff2e1f..7a68a24 100755
  		./configure --target=hexagon --prefix=${HEX_TOOLS_TARGET_BASE}
  	PATH=${TOOLCHAIN_INSTALL}/x86_64-linux-gnu/bin/:$PATH make install-headers
  
-@@ -307,7 +316,7 @@ fi
+@@ -307,7 +317,7 @@ fi
  ccache --show-stats
  
  
@@ -71,7 +73,7 @@ index 2ff2e1f..7a68a24 100755
  
  # Workaround, 'C()' macro results in switch over bool:
  MUSL_CFLAGS="${MUSL_CFLAGS} -Wno-switch-bool"
-@@ -324,8 +333,9 @@ python3.8 --version
+@@ -324,8 +334,9 @@ python3.8 --version
  build_llvm_clang
  
  #CROSS_TRIPLES="x86_64-linux-musl aarch64-linux-gnu aarch64-macos"
@@ -85,10 +87,10 @@ index 2ff2e1f..7a68a24 100755
  do
 diff --git a/build.sh b/build.sh
 new file mode 100755
-index 0000000..766adac
+index 0000000..06dfb7f
 --- /dev/null
 +++ b/build.sh
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +#!/bin/bash
 +
 +if [[ "$CONDA_DEFAULT_ENV" == "hexagon" ]]; then
@@ -105,6 +107,7 @@ index 0000000..766adac
 +export HOST_CLANG_VER="19"
 +
 +export CMAKE_INCLUDE_PATH=$CONDA_PREFIX/include
++export CPATH=$CONDA_PREFIX/include
 +
 +export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib
 +export LIBRARY_PATH=$LD_LIBRARY_PATH
