@@ -15,9 +15,9 @@
 #endif
 
 void dsplanglib(
-    short *data1, short *aligned1, int offset1, uint64_t rank1, uint64_t stride1,
-    short *data2, short *aligned2, int offset2, uint64_t rank2, uint64_t stride2,
-    short *data3, short *aligned3, int offset3, uint64_t rank3, uint64_t stride3
+    float *data1, float *aligned1, int offset1, uint64_t rank1, uint64_t stride1,
+    float *data2, float *aligned2, int offset2, uint64_t rank2, uint64_t stride2,
+    float *data3, float *aligned3, int offset3, uint64_t rank3, uint64_t stride3
 );
 
 int main(int argc, char *argv[]) {
@@ -27,12 +27,12 @@ int main(int argc, char *argv[]) {
     start_time = HAP_perf_get_qtimer_count();
     start_cycles = READ_PCYCLES();
 #endif
-    short data1[10000];
-    short data2[10000];
-    short data3[10000];
+    float data1[10000];
+    float data2[10000];
+    float data3[10000];
     for (int i = 0; i < 10000; i++) {
-        data1[i] = 5;
-        data2[i] = 6;
+        data1[i] = 5.0;
+        data2[i] = 6.0;
     }
     uint64_t rank = 10000;
     uint64_t stride = 1;
@@ -47,12 +47,12 @@ int main(int argc, char *argv[]) {
 #endif
     LOG();
     for (int i = 0; i < 100; i++) {
-        printf("%d ", data3[i]);
+        printf("%f ", data3[i]);
     }
     printf("\n");
     LOG();
     for (int i = 9900; i < 10000; i++) {
-        printf("%d ", data3[i]);
+        printf("%f ", data3[i]);
     }
     printf("\n");
     return 0;

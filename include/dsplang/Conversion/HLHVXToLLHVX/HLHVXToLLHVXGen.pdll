@@ -4899,7 +4899,7 @@ Pattern Rewrite_vabs_Vhf_Vhf {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vabs_hf_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -4910,7 +4910,7 @@ Pattern Rewrite_vabs_Vsf_Vsf {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vabs_sf_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg3;
     };
 }
@@ -4922,7 +4922,7 @@ Pattern Rewrite_vadd_Vqf16_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -4934,7 +4934,7 @@ Pattern Rewrite_vadd_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_hf_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -4946,7 +4946,7 @@ Pattern Rewrite_vadd_Vqf16_Vqf16Vqf16 {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_qf16_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -4958,7 +4958,7 @@ Pattern Rewrite_vadd_Vqf16_Vqf16Vhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_qf16_mix_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5006,7 +5006,7 @@ Pattern Rewrite_vadd_Wsf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_sf_hf_128B>(arg2, arg3) -> (type<"vector<64 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg5;
     };
 }
@@ -5018,7 +5018,7 @@ Pattern Rewrite_vadd_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_sf_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5040,7 +5040,7 @@ Pattern Rewrite_equals_Vhf_Vqf16 {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vconv_hf_qf16_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -5051,7 +5051,7 @@ Pattern Rewrite_equals_Vhf_Wqf32 {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"64 : ui32"> };
         let arg2 = op<llhvx.intr.vconv_hf_qf32_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -5062,7 +5062,7 @@ Pattern Rewrite_equals_Vsf_Vqf32 {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vconv_sf_qf32_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg3;
     };
 }
@@ -5096,7 +5096,7 @@ Pattern Rewrite_vcvt_Whf_Vb {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vcvt_hf_b_128B>(arg1) -> (type<"vector<64 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
         replace root with arg3;
     };
 }
@@ -5107,7 +5107,7 @@ Pattern Rewrite_vcvt_Vhf_Vh {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vcvt_hf_h_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -5119,7 +5119,7 @@ Pattern Rewrite_vcvt_Vhf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vcvt_hf_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5130,7 +5130,7 @@ Pattern Rewrite_vcvt_Whf_Vub {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vcvt_hf_ub_128B>(arg1) -> (type<"vector<64 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
         replace root with arg3;
     };
 }
@@ -5141,7 +5141,7 @@ Pattern Rewrite_vcvt_Vhf_Vuh {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vcvt_hf_uh_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -5152,7 +5152,7 @@ Pattern Rewrite_vcvt_Wsf_Vhf {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vcvt_sf_hf_128B>(arg1) -> (type<"vector<64 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg3;
     };
 }
@@ -5187,7 +5187,7 @@ Pattern Rewrite_vdmpy_Vsf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vdmpy_sf_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5200,7 +5200,7 @@ Pattern Rewrite_vdmpyacc_Vsf_VsfVhfVhf {
         let arg4 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg5 = op<hlhvx.CastVectorToGeneric>(arg2) { length = attr<"32 : ui32"> };
         let arg6 = op<llhvx.intr.vdmpy_sf_hf_acc_128B>(arg3, arg4, arg5) -> (type<"vector<32 x i32>">);
-        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg7;
     };
 }
@@ -5212,7 +5212,7 @@ Pattern Rewrite_vfmax_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vfmax_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5224,7 +5224,7 @@ Pattern Rewrite_vfmax_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vfmax_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5236,7 +5236,7 @@ Pattern Rewrite_vfmin_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vfmin_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5248,7 +5248,7 @@ Pattern Rewrite_vfmin_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vfmin_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5259,7 +5259,7 @@ Pattern Rewrite_vfneg_Vhf_Vhf {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vfneg_hf_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -5270,7 +5270,7 @@ Pattern Rewrite_vfneg_Vsf_Vsf {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vfneg_sf_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg3;
     };
 }
@@ -5400,7 +5400,7 @@ Pattern Rewrite_vmax_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmax_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5412,7 +5412,7 @@ Pattern Rewrite_vmax_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmax_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5424,7 +5424,7 @@ Pattern Rewrite_vmin_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmin_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5436,7 +5436,7 @@ Pattern Rewrite_vmin_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmin_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5448,7 +5448,7 @@ Pattern Rewrite_vmpy_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_hf_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5461,7 +5461,7 @@ Pattern Rewrite_vmpyacc_Vhf_VhfVhfVhf {
         let arg4 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg5 = op<hlhvx.CastVectorToGeneric>(arg2) { length = attr<"32 : ui32"> };
         let arg6 = op<llhvx.intr.vmpy_hf_hf_acc_128B>(arg3, arg4, arg5) -> (type<"vector<32 x i32>">);
-        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg7;
     };
 }
@@ -5473,7 +5473,7 @@ Pattern Rewrite_vmpy_Vqf16_Vqf16Vqf16 {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_qf16_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5485,7 +5485,7 @@ Pattern Rewrite_vmpy_Vqf16_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_qf16_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5497,7 +5497,7 @@ Pattern Rewrite_vmpy_Vqf16_Vqf16Vhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_qf16_mix_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5569,7 +5569,7 @@ Pattern Rewrite_vmpy_Wsf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_sf_hf_128B>(arg2, arg3) -> (type<"vector<64 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg5;
     };
 }
@@ -5582,7 +5582,7 @@ Pattern Rewrite_vmpyacc_Wsf_WsfVhfVhf {
         let arg4 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg5 = op<hlhvx.CastVectorToGeneric>(arg2) { length = attr<"32 : ui32"> };
         let arg6 = op<llhvx.intr.vmpy_sf_hf_acc_128B>(arg3, arg4, arg5) -> (type<"vector<64 x i32>">);
-        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg7;
     };
 }
@@ -5594,7 +5594,7 @@ Pattern Rewrite_vmpy_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_sf_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5606,7 +5606,7 @@ Pattern Rewrite_vsub_Vqf16_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5618,7 +5618,7 @@ Pattern Rewrite_vsub_Vhf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_hf_hf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5630,7 +5630,7 @@ Pattern Rewrite_vsub_Vqf16_Vqf16Vqf16 {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_qf16_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5642,7 +5642,7 @@ Pattern Rewrite_vsub_Vqf16_Vqf16Vhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_qf16_mix_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<32 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg5;
     };
 }
@@ -5690,7 +5690,7 @@ Pattern Rewrite_vsub_Wsf_VhfVhf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_sf_hf_128B>(arg2, arg3) -> (type<"vector<64 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg5;
     };
 }
@@ -5702,7 +5702,7 @@ Pattern Rewrite_vsub_Vsf_VsfVsf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_sf_sf_128B>(arg2, arg3) -> (type<"vector<32 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg5;
     };
 }
@@ -5774,7 +5774,7 @@ Pattern Rewrite_vadd_Wsf_VbfVbf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vadd_sf_bf_128B>(arg2, arg3) -> (type<"vector<64 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg5;
     };
 }
@@ -5796,7 +5796,7 @@ Pattern Rewrite_equals_Vhf_Vh {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vconv_hf_h_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
         replace root with arg3;
     };
 }
@@ -5807,7 +5807,7 @@ Pattern Rewrite_equals_Vsf_Vw {
     rewrite root with {
         let arg1 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg2 = op<llhvx.intr.vconv_sf_w_128B>(arg1) -> (type<"vector<32 x i32>">);
-        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"64 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<64 x f16>">);
+        let arg3 = op<hlhvx.CastVectorFromGeneric>(arg2) { length = attr<"32 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<32 x f32>">);
         replace root with arg3;
     };
 }
@@ -5925,7 +5925,7 @@ Pattern Rewrite_vmpy_Wsf_VbfVbf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vmpy_sf_bf_128B>(arg2, arg3) -> (type<"vector<64 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg5;
     };
 }
@@ -5938,7 +5938,7 @@ Pattern Rewrite_vmpyacc_Wsf_WsfVbfVbf {
         let arg4 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg5 = op<hlhvx.CastVectorToGeneric>(arg2) { length = attr<"32 : ui32"> };
         let arg6 = op<llhvx.intr.vmpy_sf_bf_acc_128B>(arg3, arg4, arg5) -> (type<"vector<64 x i32>">);
-        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg7 = op<hlhvx.CastVectorFromGeneric>(arg6) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg7;
     };
 }
@@ -5950,7 +5950,7 @@ Pattern Rewrite_vsub_Wsf_VbfVbf {
         let arg2 = op<hlhvx.CastVectorToGeneric>(arg0) { length = attr<"32 : ui32"> };
         let arg3 = op<hlhvx.CastVectorToGeneric>(arg1) { length = attr<"32 : ui32"> };
         let arg4 = op<llhvx.intr.vsub_sf_bf_128B>(arg2, arg3) -> (type<"vector<64 x i32>">);
-        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"128 : ui32">, type = attr<"\"f16\""> } -> (type<"vector<128 x f16>">);
+        let arg5 = op<hlhvx.CastVectorFromGeneric>(arg4) { length = attr<"64 : ui32">, type = attr<"\"f32\""> } -> (type<"vector<64 x f32>">);
         replace root with arg5;
     };
 }

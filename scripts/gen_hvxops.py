@@ -327,9 +327,11 @@ def get_arg_type(arg):
         if not specific_type:
             arg_type += f'VectorOfLengthAndType<[1024], [I1]>'
         elif specific_type == 'qf16':
-            arg_type += f'VectorOfQf16'
+            # arg_type += f'VectorOfQf16'
+            arg_type += f'VectorOfLengthAndType<[64], [F16]>'
         elif specific_type == 'qf32':
-            arg_type += f'VectorOfQf32'
+            # arg_type += f'VectorOfQf32'
+            arg_type += f'VectorOfLengthAndType<[32], [F32]>'
         else:
             arg_type += f'VectorOfLengthAndType<'
             if specific_type == 'b':
@@ -341,9 +343,9 @@ def get_arg_type(arg):
             elif specific_type == 'bf':
                 arg_type += f'[64], [BF16]'
             elif specific_type == 'sf':
-                arg_type += f'[64], [F16]'
-            elif specific_type == 'hf':
                 arg_type += f'[32], [F32]'
+            elif specific_type == 'hf':
+                arg_type += f'[64], [F16]'
             arg_type += f'>'
     elif root_type == 'W':
         if not specific_type:
@@ -363,9 +365,9 @@ def get_arg_type(arg):
             elif specific_type == 'bf':
                 arg_type += f'[128], [BF16]'
             elif specific_type == 'sf':
-                arg_type += f'[128], [F16]'
-            elif specific_type == 'hf':
                 arg_type += f'[64], [F32]'
+            elif specific_type == 'hf':
+                arg_type += f'[128], [F16]'
             arg_type += f'>'
     elif root_type == 'R' or root_type == 'P':
         if not specific_type:

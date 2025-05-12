@@ -4857,10 +4857,10 @@ def HVX_vabs_Vhf_Vhf :
         "vabs.Vhf.Vhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0
+        VectorOfLengthAndType<[64], [F16]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vabs_Vsf_Vsf :
@@ -4868,10 +4868,10 @@ def HVX_vabs_Vsf_Vsf :
         "vabs.Vsf.Vsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0
+        VectorOfLengthAndType<[32], [F32]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vadd_Vqf16_VhfVhf :
@@ -4879,16 +4879,52 @@ def HVX_vadd_Vqf16_VhfVhf :
         "vadd.Vqf16.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf16:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vadd_Vhf_VhfVhf :
     HLHVX_Op<
         "vadd.Vhf.VhfVhf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vadd_Vqf16_Vqf16Vqf16 :
+    HLHVX_Op<
+        "vadd.Vqf16.Vqf16Vqf16"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vadd_Vqf16_Vqf16Vhf :
+    HLHVX_Op<
+        "vadd.Vqf16.Vqf16Vhf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vadd_Vqf32_Vqf32Vqf32 :
+    HLHVX_Op<
+        "vadd.Vqf32.Vqf32Vqf32"
     >,
     Arguments<(ins
         VectorOfLengthAndType<[32], [F32]>:$arg0,
@@ -4898,52 +4934,16 @@ def HVX_vadd_Vhf_VhfVhf :
         VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
-def HVX_vadd_Vqf16_Vqf16Vqf16 :
-    HLHVX_Op<
-        "vadd.Vqf16.Vqf16Vqf16"
-    >,
-    Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfQf16:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf16:$result
-    )>;
-
-def HVX_vadd_Vqf16_Vqf16Vhf :
-    HLHVX_Op<
-        "vadd.Vqf16.Vqf16Vhf"
-    >,
-    Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf16:$result
-    )>;
-
-def HVX_vadd_Vqf32_Vqf32Vqf32 :
-    HLHVX_Op<
-        "vadd.Vqf32.Vqf32Vqf32"
-    >,
-    Arguments<(ins
-        VectorOfQf32:$arg0,
-        VectorOfQf32:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf32:$result
-    )>;
-
 def HVX_vadd_Vqf32_Vqf32Vsf :
     HLHVX_Op<
         "vadd.Vqf32.Vqf32Vsf"
     >,
     Arguments<(ins
-        VectorOfQf32:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf32:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vadd_Vqf32_VsfVsf :
@@ -4951,11 +4951,11 @@ def HVX_vadd_Vqf32_VsfVsf :
         "vadd.Vqf32.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf32:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vadd_Wsf_VhfVhf :
@@ -4963,11 +4963,11 @@ def HVX_vadd_Wsf_VhfVhf :
         "vadd.Wsf.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_vadd_Vsf_VsfVsf :
@@ -4975,11 +4975,11 @@ def HVX_vadd_Vsf_VsfVsf :
         "vadd.Vsf.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vfmv_Vw_Vw :
@@ -4998,10 +4998,10 @@ def HVX_equals_Vhf_Vqf16 :
         "equals.Vhf.Vqf16"
     >,
     Arguments<(ins
-        VectorOfQf16:$arg0
+        VectorOfLengthAndType<[64], [F16]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_equals_Vhf_Wqf32 :
@@ -5012,7 +5012,7 @@ def HVX_equals_Vhf_Wqf32 :
         VectorPairOfQf32:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_equals_Vsf_Vqf32 :
@@ -5020,10 +5020,10 @@ def HVX_equals_Vsf_Vqf32 :
         "equals.Vsf.Vqf32"
     >,
     Arguments<(ins
-        VectorOfQf32:$arg0
+        VectorOfLengthAndType<[32], [F32]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vcvt_Vb_VhfVhf :
@@ -5031,8 +5031,8 @@ def HVX_vcvt_Vb_VhfVhf :
         "vcvt.Vb.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [SI8]>:$result
@@ -5043,7 +5043,7 @@ def HVX_vcvt_Vh_Vhf :
         "vcvt.Vh.Vhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0
+        VectorOfLengthAndType<[64], [F16]>:$arg0
     )>,
     Results<(outs
         VectorOfLengthAndType<[64], [SI16]>:$result
@@ -5057,7 +5057,7 @@ def HVX_vcvt_Whf_Vb :
         VectorOfLengthAndType<[128], [SI8]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F32]>:$result
+        VectorOfLengthAndType<[128], [F16]>:$result
     )>;
 
 def HVX_vcvt_Vhf_Vh :
@@ -5068,7 +5068,7 @@ def HVX_vcvt_Vhf_Vh :
         VectorOfLengthAndType<[64], [SI16]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vcvt_Vhf_VsfVsf :
@@ -5076,11 +5076,11 @@ def HVX_vcvt_Vhf_VsfVsf :
         "vcvt.Vhf.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vcvt_Whf_Vub :
@@ -5091,7 +5091,7 @@ def HVX_vcvt_Whf_Vub :
         VectorOfLengthAndType<[128], [UI8]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F32]>:$result
+        VectorOfLengthAndType<[128], [F16]>:$result
     )>;
 
 def HVX_vcvt_Vhf_Vuh :
@@ -5102,7 +5102,7 @@ def HVX_vcvt_Vhf_Vuh :
         VectorOfLengthAndType<[64], [UI16]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vcvt_Wsf_Vhf :
@@ -5110,10 +5110,10 @@ def HVX_vcvt_Wsf_Vhf :
         "vcvt.Wsf.Vhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0
+        VectorOfLengthAndType<[64], [F16]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_vcvt_Vub_VhfVhf :
@@ -5121,8 +5121,8 @@ def HVX_vcvt_Vub_VhfVhf :
         "vcvt.Vub.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [UI8]>:$result
@@ -5133,7 +5133,7 @@ def HVX_vcvt_Vuh_Vhf :
         "vcvt.Vuh.Vhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0
+        VectorOfLengthAndType<[64], [F16]>:$arg0
     )>,
     Results<(outs
         VectorOfLengthAndType<[64], [UI16]>:$result
@@ -5144,11 +5144,11 @@ def HVX_vdmpy_Vsf_VhfVhf :
         "vdmpy.Vsf.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vdmpyacc_Vsf_VsfVhfVhf :
@@ -5156,12 +5156,12 @@ def HVX_vdmpyacc_Vsf_VsfVhfVhf :
         "vdmpyacc.Vsf.VsfVhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1,
-        VectorOfLengthAndType<[32], [F32]>:$arg2
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1,
+        VectorOfLengthAndType<[64], [F16]>:$arg2
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vfmax_Vhf_VhfVhf :
@@ -5169,11 +5169,11 @@ def HVX_vfmax_Vhf_VhfVhf :
         "vfmax.Vhf.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vfmax_Vsf_VsfVsf :
@@ -5181,6 +5181,18 @@ def HVX_vfmax_Vsf_VsfVsf :
         "vfmax.Vsf.VsfVsf"
     >,
     Arguments<(ins
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[32], [F32]>:$result
+    )>;
+
+def HVX_vfmin_Vhf_VhfVhf :
+    HLHVX_Op<
+        "vfmin.Vhf.VhfVhf"
+    >,
+    Arguments<(ins
         VectorOfLengthAndType<[64], [F16]>:$arg0,
         VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
@@ -5188,9 +5200,9 @@ def HVX_vfmax_Vsf_VsfVsf :
         VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
-def HVX_vfmin_Vhf_VhfVhf :
+def HVX_vfmin_Vsf_VsfVsf :
     HLHVX_Op<
-        "vfmin.Vhf.VhfVhf"
+        "vfmin.Vsf.VsfVsf"
     >,
     Arguments<(ins
         VectorOfLengthAndType<[32], [F32]>:$arg0,
@@ -5200,32 +5212,9 @@ def HVX_vfmin_Vhf_VhfVhf :
         VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
-def HVX_vfmin_Vsf_VsfVsf :
-    HLHVX_Op<
-        "vfmin.Vsf.VsfVsf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
-    )>;
-
 def HVX_vfneg_Vhf_Vhf :
     HLHVX_Op<
         "vfneg.Vhf.Vhf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0
-    )>,
-    Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
-    )>;
-
-def HVX_vfneg_Vsf_Vsf :
-    HLHVX_Op<
-        "vfneg.Vsf.Vsf"
     >,
     Arguments<(ins
         VectorOfLengthAndType<[64], [F16]>:$arg0
@@ -5234,13 +5223,24 @@ def HVX_vfneg_Vsf_Vsf :
         VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
+def HVX_vfneg_Vsf_Vsf :
+    HLHVX_Op<
+        "vfneg.Vsf.Vsf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[32], [F32]>:$arg0
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[32], [F32]>:$result
+    )>;
+
 def HVX_vcmp_gt_Q_VhfVhf :
     HLHVX_Op<
         "vcmp.gt.Q.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5252,8 +5252,8 @@ def HVX_vcmp_gtand_Q_QVhfVhf :
     >,
     Arguments<(ins
         VectorOfLengthAndType<[128], [I1]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1,
-        VectorOfLengthAndType<[32], [F32]>:$arg2
+        VectorOfLengthAndType<[64], [F16]>:$arg1,
+        VectorOfLengthAndType<[64], [F16]>:$arg2
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5265,8 +5265,8 @@ def HVX_vcmp_gtor_Q_QVhfVhf :
     >,
     Arguments<(ins
         VectorOfLengthAndType<[128], [I1]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1,
-        VectorOfLengthAndType<[32], [F32]>:$arg2
+        VectorOfLengthAndType<[64], [F16]>:$arg1,
+        VectorOfLengthAndType<[64], [F16]>:$arg2
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5278,8 +5278,8 @@ def HVX_vcmp_gtxacc_Q_QVhfVhf :
     >,
     Arguments<(ins
         VectorOfLengthAndType<[128], [I1]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1,
-        VectorOfLengthAndType<[32], [F32]>:$arg2
+        VectorOfLengthAndType<[64], [F16]>:$arg1,
+        VectorOfLengthAndType<[64], [F16]>:$arg2
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5290,8 +5290,8 @@ def HVX_vcmp_gt_Q_VsfVsf :
         "vcmp.gt.Q.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5303,8 +5303,8 @@ def HVX_vcmp_gtand_Q_QVsfVsf :
     >,
     Arguments<(ins
         VectorOfLengthAndType<[128], [I1]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1,
-        VectorOfLengthAndType<[64], [F16]>:$arg2
+        VectorOfLengthAndType<[32], [F32]>:$arg1,
+        VectorOfLengthAndType<[32], [F32]>:$arg2
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5316,8 +5316,8 @@ def HVX_vcmp_gtor_Q_QVsfVsf :
     >,
     Arguments<(ins
         VectorOfLengthAndType<[128], [I1]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1,
-        VectorOfLengthAndType<[64], [F16]>:$arg2
+        VectorOfLengthAndType<[32], [F32]>:$arg1,
+        VectorOfLengthAndType<[32], [F32]>:$arg2
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5329,8 +5329,8 @@ def HVX_vcmp_gtxacc_Q_QVsfVsf :
     >,
     Arguments<(ins
         VectorOfLengthAndType<[128], [I1]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1,
-        VectorOfLengthAndType<[64], [F16]>:$arg2
+        VectorOfLengthAndType<[32], [F32]>:$arg1,
+        VectorOfLengthAndType<[32], [F32]>:$arg2
     )>,
     Results<(outs
         VectorOfLengthAndType<[128], [I1]>:$result
@@ -5341,11 +5341,11 @@ def HVX_vmax_Vhf_VhfVhf :
         "vmax.Vhf.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vmax_Vsf_VsfVsf :
@@ -5353,11 +5353,11 @@ def HVX_vmax_Vsf_VsfVsf :
         "vmax.Vsf.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vmin_Vhf_VhfVhf :
@@ -5365,6 +5365,18 @@ def HVX_vmin_Vhf_VhfVhf :
         "vmin.Vhf.VhfVhf"
     >,
     Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vmin_Vsf_VsfVsf :
+    HLHVX_Op<
+        "vmin.Vsf.VsfVsf"
+    >,
+    Arguments<(ins
         VectorOfLengthAndType<[32], [F32]>:$arg0,
         VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
@@ -5372,9 +5384,9 @@ def HVX_vmin_Vhf_VhfVhf :
         VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
-def HVX_vmin_Vsf_VsfVsf :
+def HVX_vmpy_Vhf_VhfVhf :
     HLHVX_Op<
-        "vmin.Vsf.VsfVsf"
+        "vmpy.Vhf.VhfVhf"
     >,
     Arguments<(ins
         VectorOfLengthAndType<[64], [F16]>:$arg0,
@@ -5384,29 +5396,17 @@ def HVX_vmin_Vsf_VsfVsf :
         VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
-def HVX_vmpy_Vhf_VhfVhf :
-    HLHVX_Op<
-        "vmpy.Vhf.VhfVhf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
-    )>;
-
 def HVX_vmpyacc_Vhf_VhfVhfVhf :
     HLHVX_Op<
         "vmpyacc.Vhf.VhfVhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1,
-        VectorOfLengthAndType<[32], [F32]>:$arg2
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1,
+        VectorOfLengthAndType<[64], [F16]>:$arg2
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vmpy_Vqf16_Vqf16Vqf16 :
@@ -5414,11 +5414,11 @@ def HVX_vmpy_Vqf16_Vqf16Vqf16 :
         "vmpy.Vqf16.Vqf16Vqf16"
     >,
     Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfQf16:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf16:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vmpy_Vqf16_VhfVhf :
@@ -5426,11 +5426,11 @@ def HVX_vmpy_Vqf16_VhfVhf :
         "vmpy.Vqf16.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf16:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vmpy_Vqf16_Vqf16Vhf :
@@ -5438,11 +5438,11 @@ def HVX_vmpy_Vqf16_Vqf16Vhf :
         "vmpy.Vqf16.Vqf16Vhf"
     >,
     Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf16:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_vmpy_Vqf32_Vqf32Vqf32 :
@@ -5450,11 +5450,11 @@ def HVX_vmpy_Vqf32_Vqf32Vqf32 :
         "vmpy.Vqf32.Vqf32Vqf32"
     >,
     Arguments<(ins
-        VectorOfQf32:$arg0,
-        VectorOfQf32:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf32:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vmpy_Wqf32_VhfVhf :
@@ -5462,8 +5462,8 @@ def HVX_vmpy_Wqf32_VhfVhf :
         "vmpy.Wqf32.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
         VectorPairOfQf32:$result
@@ -5474,8 +5474,8 @@ def HVX_vmpy_Wqf32_Vqf16Vhf :
         "vmpy.Wqf32.Vqf16Vhf"
     >,
     Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
         VectorPairOfQf32:$result
@@ -5486,8 +5486,8 @@ def HVX_vmpy_Wqf32_Vqf16Vqf16 :
         "vmpy.Wqf32.Vqf16Vqf16"
     >,
     Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfQf16:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
         VectorPairOfQf32:$result
@@ -5498,11 +5498,11 @@ def HVX_vmpy_Vqf32_VsfVsf :
         "vmpy.Vqf32.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
-        VectorOfQf32:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vmpy_Wsf_VhfVhf :
@@ -5510,11 +5510,11 @@ def HVX_vmpy_Wsf_VhfVhf :
         "vmpy.Wsf.VhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_vmpyacc_Wsf_WsfVhfVhf :
@@ -5522,41 +5522,17 @@ def HVX_vmpyacc_Wsf_WsfVhfVhf :
         "vmpyacc.Wsf.WsfVhfVhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[128], [F16]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1,
-        VectorOfLengthAndType<[32], [F32]>:$arg2
+        VectorOfLengthAndType<[64], [F32]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1,
+        VectorOfLengthAndType<[64], [F16]>:$arg2
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_vmpy_Vsf_VsfVsf :
     HLHVX_Op<
         "vmpy.Vsf.VsfVsf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
-    )>;
-
-def HVX_vsub_Vqf16_VhfVhf :
-    HLHVX_Op<
-        "vsub.Vqf16.VhfVhf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf16:$result
-    )>;
-
-def HVX_vsub_Vhf_VhfVhf :
-    HLHVX_Op<
-        "vsub.Vhf.VhfVhf"
     >,
     Arguments<(ins
         VectorOfLengthAndType<[32], [F32]>:$arg0,
@@ -5566,81 +5542,9 @@ def HVX_vsub_Vhf_VhfVhf :
         VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
-def HVX_vsub_Vqf16_Vqf16Vqf16 :
+def HVX_vsub_Vqf16_VhfVhf :
     HLHVX_Op<
-        "vsub.Vqf16.Vqf16Vqf16"
-    >,
-    Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfQf16:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf16:$result
-    )>;
-
-def HVX_vsub_Vqf16_Vqf16Vhf :
-    HLHVX_Op<
-        "vsub.Vqf16.Vqf16Vhf"
-    >,
-    Arguments<(ins
-        VectorOfQf16:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf16:$result
-    )>;
-
-def HVX_vsub_Vqf32_Vqf32Vqf32 :
-    HLHVX_Op<
-        "vsub.Vqf32.Vqf32Vqf32"
-    >,
-    Arguments<(ins
-        VectorOfQf32:$arg0,
-        VectorOfQf32:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf32:$result
-    )>;
-
-def HVX_vsub_Vqf32_Vqf32Vsf :
-    HLHVX_Op<
-        "vsub.Vqf32.Vqf32Vsf"
-    >,
-    Arguments<(ins
-        VectorOfQf32:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf32:$result
-    )>;
-
-def HVX_vsub_Vqf32_VsfVsf :
-    HLHVX_Op<
-        "vsub.Vqf32.VsfVsf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfQf32:$result
-    )>;
-
-def HVX_vsub_Wsf_VhfVhf :
-    HLHVX_Op<
-        "vsub.Wsf.VhfVhf"
-    >,
-    Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0,
-        VectorOfLengthAndType<[32], [F32]>:$arg1
-    )>,
-    Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
-    )>;
-
-def HVX_vsub_Vsf_VsfVsf :
-    HLHVX_Op<
-        "vsub.Vsf.VsfVsf"
+        "vsub.Vqf16.VhfVhf"
     >,
     Arguments<(ins
         VectorOfLengthAndType<[64], [F16]>:$arg0,
@@ -5648,6 +5552,102 @@ def HVX_vsub_Vsf_VsfVsf :
     )>,
     Results<(outs
         VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vsub_Vhf_VhfVhf :
+    HLHVX_Op<
+        "vsub.Vhf.VhfVhf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vsub_Vqf16_Vqf16Vqf16 :
+    HLHVX_Op<
+        "vsub.Vqf16.Vqf16Vqf16"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vsub_Vqf16_Vqf16Vhf :
+    HLHVX_Op<
+        "vsub.Vqf16.Vqf16Vhf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F16]>:$result
+    )>;
+
+def HVX_vsub_Vqf32_Vqf32Vqf32 :
+    HLHVX_Op<
+        "vsub.Vqf32.Vqf32Vqf32"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[32], [F32]>:$result
+    )>;
+
+def HVX_vsub_Vqf32_Vqf32Vsf :
+    HLHVX_Op<
+        "vsub.Vqf32.Vqf32Vsf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[32], [F32]>:$result
+    )>;
+
+def HVX_vsub_Vqf32_VsfVsf :
+    HLHVX_Op<
+        "vsub.Vqf32.VsfVsf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[32], [F32]>:$result
+    )>;
+
+def HVX_vsub_Wsf_VhfVhf :
+    HLHVX_Op<
+        "vsub.Wsf.VhfVhf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[64], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F16]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[64], [F32]>:$result
+    )>;
+
+def HVX_vsub_Vsf_VsfVsf :
+    HLHVX_Op<
+        "vsub.Vsf.VsfVsf"
+    >,
+    Arguments<(ins
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
+    )>,
+    Results<(outs
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_vasr_Vub_WuhVub_rnd_sat :
@@ -5719,7 +5719,7 @@ def HVX_vadd_Wsf_VbfVbf :
         VectorOfLengthAndType<[64], [BF16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_equals_Vh_Vhf :
@@ -5727,7 +5727,7 @@ def HVX_equals_Vh_Vhf :
         "equals.Vh.Vhf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[32], [F32]>:$arg0
+        VectorOfLengthAndType<[64], [F16]>:$arg0
     )>,
     Results<(outs
         VectorOfLengthAndType<[64], [SI16]>:$result
@@ -5741,7 +5741,7 @@ def HVX_equals_Vhf_Vh :
         VectorOfLengthAndType<[64], [SI16]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[32], [F32]>:$result
+        VectorOfLengthAndType<[64], [F16]>:$result
     )>;
 
 def HVX_equals_Vsf_Vw :
@@ -5752,7 +5752,7 @@ def HVX_equals_Vsf_Vw :
         VectorOfLengthAndType<[32], [SI32]>:$arg0
     )>,
     Results<(outs
-        VectorOfLengthAndType<[64], [F16]>:$result
+        VectorOfLengthAndType<[32], [F32]>:$result
     )>;
 
 def HVX_equals_Vw_Vsf :
@@ -5760,7 +5760,7 @@ def HVX_equals_Vw_Vsf :
         "equals.Vw.Vsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0
+        VectorOfLengthAndType<[32], [F32]>:$arg0
     )>,
     Results<(outs
         VectorOfLengthAndType<[32], [SI32]>:$result
@@ -5771,8 +5771,8 @@ def HVX_vcvt_Vbf_VsfVsf :
         "vcvt.Vbf.VsfVsf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[64], [F16]>:$arg0,
-        VectorOfLengthAndType<[64], [F16]>:$arg1
+        VectorOfLengthAndType<[32], [F32]>:$arg0,
+        VectorOfLengthAndType<[32], [F32]>:$arg1
     )>,
     Results<(outs
         VectorOfLengthAndType<[64], [BF16]>:$result
@@ -5862,7 +5862,7 @@ def HVX_vmpy_Wsf_VbfVbf :
         VectorOfLengthAndType<[64], [BF16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_vmpyacc_Wsf_WsfVbfVbf :
@@ -5870,12 +5870,12 @@ def HVX_vmpyacc_Wsf_WsfVbfVbf :
         "vmpyacc.Wsf.WsfVbfVbf"
     >,
     Arguments<(ins
-        VectorOfLengthAndType<[128], [F16]>:$arg0,
+        VectorOfLengthAndType<[64], [F32]>:$arg0,
         VectorOfLengthAndType<[64], [BF16]>:$arg1,
         VectorOfLengthAndType<[64], [BF16]>:$arg2
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 
 def HVX_vsub_Wsf_VbfVbf :
@@ -5887,6 +5887,6 @@ def HVX_vsub_Wsf_VbfVbf :
         VectorOfLengthAndType<[64], [BF16]>:$arg1
     )>,
     Results<(outs
-        VectorOfLengthAndType<[128], [F16]>:$result
+        VectorOfLengthAndType<[64], [F32]>:$result
     )>;
 

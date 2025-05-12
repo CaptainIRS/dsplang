@@ -6,3 +6,21 @@
 #include "dsplang/Dialect/LLHVX/IR/LLHVXOps.td"
 
 #include "dsplang/Conversion/HLHVXToLLHVX/HLHVXToLLHVXGen.pdll"
+
+Pattern Canonicalize_vmpy with benefit(10) {
+    let root = op<hlhvx.vmpy.Vqf32.VsfVsf>(
+        op<hlhvx.equals.Vsf.Vqf32>(arg0: Value),
+        op<hlhvx.equals.Vsf.Vqf32>(arg1: Value)
+    );
+
+    replace root with op<hlhvx.vmpy.Vqf32.Vqf32Vqf32>(arg0, arg1) -> (type<"vector<32 x f32>">);
+}
+
+Pattern Canonicalize_vadd with benefit(10) {
+    let root = op<hlhvx.vadd.Vqf32.VsfVsf>(
+        op<hlhvx.equals.Vsf.Vqf32>(arg0: Value),
+        op<hlhvx.equals.Vsf.Vqf32>(arg1: Value)
+    );
+
+    replace root with op<hlhvx.vadd.Vqf32.Vqf32Vqf32>(arg0, arg1) -> (type<"vector<32 x f32>">);
+}

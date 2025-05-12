@@ -16,6 +16,8 @@ build/$(EXP)/$(EXP)$(IMPL).o: build/$(EXP) $(EXP)/lib.$(IMPL)
 		$(LLVM_ROOT)/bin/hexagon-unknown-none-elf-clang \
 			-fvectorize \
 			-O3 \
+			-mhvx \
+			-mhvx-length=128B \
 			-c $(EXP)/lib.$(IMPL) \
 			-o build/$(EXP)/$(EXP)$(IMPL).o \
 			-I$(HEXAGON_TOOLS)/Tools/target/hexagon/include/; \

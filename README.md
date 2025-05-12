@@ -34,9 +34,17 @@ Clone the repository.
 4. `cmake -G Ninja -DMLIR_DIR=$PWD/toolchain_for_hexagon/clang+llvm-fork-cross-hexagon-unknown-linux-musl/x86_64-linux-gnu/lib/cmake/mlir -DCMAKE_PREFIX_PATH=$PWD/venv/bin -DLLVM_EXTERNAL_LIT=$PWD/venv/bin/lit ..`
 5. `ninja`
 
-### Running the examples
+### Running the examples (simulator)
 
 Note: You need to have the Hexagon SDK installed as the examples use functionalities from the SDK for instrumentation. Make sure that the environment variables are set up correctly.
 
 1. `cd examples`
 2. `make sim EXP=basic EXP=dsp` to run the DSPLang version of the `basic` example.
+
+### Running the examples (device)
+
+Note: Only the QCS8550 SoC (Snapdragon 8 Gen 2) is supported at the moment. Connect the device to your computer and make sure that `adb devices -l` shows the device.
+
+1. `cd examples`
+2. `make device EXP=basic EXP=dsp` to run the DSPLang version of the `basic` example.
+

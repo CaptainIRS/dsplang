@@ -29,6 +29,26 @@ Pattern Rewrite_arith_addi_64xsi16 {
     };
 }
 
+Pattern Rewrite_arith_addf_32xf32 {
+    let root = op<arith.addf>(arg0: Value, arg1: Value) -> (type<"vector<32 x f32>">);
+
+    rewrite root with {
+        let resultQf32 = op<hlhvx.vadd.Vqf32.VsfVsf>(arg0, arg1) -> (type<"vector<32 x f32>">);
+        let result = op<hlhvx.equals.Vsf.Vqf32>(resultQf32) -> (type<"vector<32 x f32>">);
+        replace root with result;
+    };
+}
+
+Pattern Rewrite_arith_mulf_32xf32 {
+    let root = op<arith.mulf>(arg0: Value, arg1: Value) -> (type<"vector<32 x f32>">);
+
+    rewrite root with {
+        let resultQf32 = op<hlhvx.vmpy.Vqf32.VsfVsf>(arg0, arg1) -> (type<"vector<32 x f32>">);
+        let result = op<hlhvx.equals.Vsf.Vqf32>(resultQf32) -> (type<"vector<32 x f32>">);
+        replace root with result;
+    };
+}
+
 Pattern Rewrite_arith_addi_128xsi16 {
     let root = op<arith.addi>(arg0: Value, arg1: Value) -> (type<"vector<128 x i16>">);
 

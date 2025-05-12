@@ -209,6 +209,7 @@ int loadAndProcessMLIR(mlir::MLIRContext &context,
   if (isLoweringToAffineFusion) {
     mlir::OpPassManager &optPM = pm.nest<mlir::func::FuncOp>();
     optPM.addPass(mlir::affine::createLoopFusionPass());
+    optPM.addPass(mlir::affine::createAffineScalarReplacementPass());
   }
   if (isLoweringToAffineVectorize) {
     mlir::OpPassManager &optPM = pm.nest<mlir::func::FuncOp>();
