@@ -1,6 +1,7 @@
 # DSPLang
 
-Note: WIP: This is a work in progress.
+> [!WARNING] 
+> WIP: This is a work in progress.
 
 ## Overview
 
@@ -8,8 +9,12 @@ DSPLang is a programming language designed for building efficient vector operati
 
 Details about the current implementation can be found [here](./DSPLang.pdf).
 
-![image](https://github.com/user-attachments/assets/a6f8aef6-fb16-453d-a72c-3ed0c06f87de)
+![image](https://github.com/user-attachments/assets/236f87cb-ad9f-445a-a541-ee8e3b638b9c)
 
+### New dialects
+
+* HLHVX dialect: A high-level dialect with the correct type information, suitable as a lowering target from other dialects in the MLIR ecosystem.
+* LLHVX dialect: A one-to-one mapping to the HVX LLVM intrinsics, which directly translate to LLVM IR.
 
 ## Setup
 
