@@ -99,13 +99,11 @@ qemu: build/$(EXP)/$(EXP)$(IMPL).so build/$(EXP)/libhexagon.so build/$(EXP)/pmu_
 		-append "$(HEXAGON)/libs/run_main_on_hexagon/ship/hexagon_tool$(HEXAGON_TOOLS_VERSION)_$(HEXAGON_ISA)/run_main_on_hexagon_sim -- ${PWD}/build/$(EXP)/$(EXP)$(IMPL).so"
 	
 device: build/$(EXP)/$(EXP)$(IMPL).so build/$(EXP)/libhexagon.so
-	adb wait-for-device root
-	adb remount
-	adb logcat -c
+	adb wait-for-device logcat -c
 	adb shell mkdir -p /data/local/tmp/dsplang
 	adb push build/$(EXP)/$(EXP)$(IMPL).so /data/local/tmp/dsplang/
 	adb push build/$(EXP)/libhexagon.so /data/local/tmp/dsplang/
-	adb push $(HEXAGON)/libs/run_main_on_hexagon/ship/android/run_main_on_hexagon /data/local/tmp/dsplang/
+	adb push $(HEXAGON)/libs/run_main_on_hexagon/ship/android_aarch64/run_main_on_hexagon /data/local/tmp/dsplang/
 	adb push $(HEXAGON)/libs/run_main_on_hexagon/ship/hexagon_tool$(HEXAGON_TOOLS_VERSION)_$(HEXAGON_ISA)/librun_main_on_hexagon_skel.so /data/local/tmp/dsplang/
 	adb shell echo "0x1f > /data/local/tmp/dsplang/run_main_on_hexagon.farf"
 	adb shell "export DSP_LIBRARY_PATH=/data/local/tmp/dsplang/; /data/local/tmp/dsplang/run_main_on_hexagon 3 /data/local/tmp/dsplang/$(EXP)$(IMPL).so"

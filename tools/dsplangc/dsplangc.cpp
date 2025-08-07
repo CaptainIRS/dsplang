@@ -214,6 +214,7 @@ int loadAndProcessMLIR(mlir::MLIRContext &context,
   if (isLoweringToAffineVectorize) {
     mlir::OpPassManager &optPM = pm.nest<mlir::func::FuncOp>();
     optPM.addPass(dsplang::createAffineSelectiveVectorizePass());
+    optPM.addPass(mlir::affine::createLoopUnrollAndJamPass(4));
   }
   if (isLoweringToHLHVX) {
     pm.addPass(dsplang::createArithToHLHVXPass());
