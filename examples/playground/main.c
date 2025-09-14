@@ -46,6 +46,7 @@ int main() {
     duration = HAP_perf_qtimer_count_to_us(end_time - start_time);
     LOG("Duration: %lld us\n", duration);
 #endif
+    LOG();
     for (int i = 0; i < 70; i++) {
         printf("%d ", data3[i]);
     }

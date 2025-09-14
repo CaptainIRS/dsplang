@@ -284,6 +284,12 @@ using OrOpLowering = BinaryIOpLowering<dsplang::OrOp, arith::OrIOp>;
 using XorOpLowering = BinaryIOpLowering<dsplang::XorOp, arith::XOrIOp>;
 using SubIOpLowering = BinarySIOpLowering<dsplang::SubOp, arith::SubIOp>;
 using SubFOpLowering = BinaryFOpLowering<dsplang::SubOp, arith::SubFOp>;
+// using MinUIOpLowering = BinaryUIOpLowering<dsplang::MinOp, arith::MinUIOp>;
+using MinSIOpLowering = BinarySIOpLowering<dsplang::MinOp, arith::MinSIOp>;
+using MinFOpLowering = BinaryFOpLowering<dsplang::MinOp, arith::MinimumFOp>;
+// using MaxUIOpLowering = BinaryUIOpLowering<dsplang::MaxOp, arith::MaxUIOp>;
+using MaxSIOpLowering = BinarySIOpLowering<dsplang::MaxOp, arith::MaxSIOp>;
+using MaxFOpLowering = BinaryFOpLowering<dsplang::MaxOp, arith::MaximumFOp>;
 
 //===----------------------------------------------------------------------===//
 // DsplangToAffine RewritePatterns: Assign operations
@@ -611,7 +617,9 @@ void DsplangToAffineLoweringPass::runOnOperation() {
            ConstantFloatOpLowering<dsplang::ConstantF32Op>, FuncOpLowering,
            MulUIOpLowering, MulSIOpLowering, MulFOpLowering, PrintOpLowering,
            SubIOpLowering, SubFOpLowering, AndOpLowering, OrOpLowering,
-           XorOpLowering, ReturnOpLowering>(&getContext());
+           XorOpLowering, ReturnOpLowering, //, MinUIOpLowering, MaxUIOpLowering
+           MinSIOpLowering, MinFOpLowering, MaxSIOpLowering, MaxFOpLowering>(
+          &getContext());
 
   // With the target and rewrite patterns defined, we can now attempt the
   // conversion. The conversion will signal failure if any of our `illegal`

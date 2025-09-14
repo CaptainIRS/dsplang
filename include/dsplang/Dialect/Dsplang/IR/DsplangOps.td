@@ -563,6 +563,70 @@ def SubOp : Dsplang_Op<"sub",
   ];
 }
 
+def MinOp : Dsplang_Op<"min",
+    [Pure, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
+  let summary = "element-wise minimum operation";
+  let description = [{
+    The "min" operation performs element-wise minimum between two tensors.
+    The shapes of the tensor operands are expected to match.
+  }];
+
+  let arguments = (ins DsplangTensor:$lhs, DsplangTensor:$rhs);
+  let results = (outs DsplangTensor);
+
+  // Indicate that the operation has a custom parser and printer method.
+  let hasCustomAssemblyFormat = 1;
+
+  // Allow building a MinOp with from the two input operands.
+  let builders = [
+    OpBuilder<(ins "Value":$lhs, "Value":$rhs)>
+  ];
+}
+
+def MaxOp : Dsplang_Op<"max",
+    [Pure, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
+  let summary = "element-wise maximum operation";
+  let description = [{
+    The "max" operation performs element-wise maximum between two tensors.
+    The shapes of the tensor operands are expected to match.
+  }];
+
+  let arguments = (ins DsplangTensor:$lhs, DsplangTensor:$rhs);
+  let results = (outs DsplangTensor);
+
+  // Indicate that the operation has a custom parser and printer method.
+  let hasCustomAssemblyFormat = 1;
+
+  // Allow building a MaxOp with from the two input operands.
+  let builders = [
+    OpBuilder<(ins "Value":$lhs, "Value":$rhs)>
+  ];
+}
+
+//===----------------------------------------------------------------------===//
+// AbsOp
+//===----------------------------------------------------------------------===//
+def AbsOp : Dsplang_Op<"abs",
+    [Pure, DeclareOpInterfaceMethods<ShapeInferenceOpInterface>]> {
+  let summary = "element-wise absolute operation";
+  let description = [{
+    The "abs" operation performs element-wise absolute value operation on a
+    tensor.
+  }];
+
+  let arguments = (ins DsplangTensor:$input);
+  let results = (outs DsplangTensor);
+
+  // Indicate that the operation has a custom parser and printer method.
+  let hasCustomAssemblyFormat = 1;
+
+  // Allow building an AbsOp with from the input operand.
+  let builders = [
+    OpBuilder<(ins "Value":$input)>
+  ];
+}
+
+
 //===----------------------------------------------------------------------===//
 // ReshapeOp
 //===----------------------------------------------------------------------===//

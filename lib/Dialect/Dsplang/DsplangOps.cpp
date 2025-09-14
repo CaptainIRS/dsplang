@@ -130,6 +130,22 @@ static mlir::ParseResult parseBinaryOp(mlir::OpAsmParser &parser,
   return mlir::success();
 }
 
+/// A generalized parser for unary operations.
+static mlir::ParseResult parseUnaryOp(mlir::OpAsmParser &parser,
+                                      mlir::OperationState &result) {
+  mlir::OpAsmParser::UnresolvedOperand operand;
+  Type type;
+  if (parser.parseOperand(operand) ||
+      parser.parseOptionalAttrDict(result.attributes) ||
+      parser.parseColonType(type))
+    return mlir::failure();
+
+  if (parser.resolveOperand(operand, type, result.operands))
+    return mlir::failure();
+  result.addTypes(type);
+  return mlir::success();
+}
+
 /// A generalized printer for binary operations. It prints in two different
 /// forms depending on if all of the types match.
 static void printBinaryOp(mlir::OpAsmPrinter &printer, mlir::Operation *op) {
@@ -147,6 +163,13 @@ static void printBinaryOp(mlir::OpAsmPrinter &printer, mlir::Operation *op) {
 
   // Otherwise, print a functional type.
   printer.printFunctionalType(op->getOperandTypes(), op->getResultTypes());
+}
+
+/// A generalized parser for unary operations.
+static void printUnaryOp(mlir::OpAsmPrinter &printer, mlir::Operation *op) {
+  printer << " " << op->getOperand(0);
+  printer.printOptionalAttrDict(op->getAttrs());
+  printer << " : " << *op->result_type_begin();
 }
 
 //===----------------------------------------------------------------------===//
@@ -884,6 +907,73 @@ void dsplang::SubOp::print(mlir::OpAsmPrinter &p) { printBinaryOp(p, *this); }
 /// Infer the output shape of the SubOp, this is required by the shape inference
 /// interface.
 void dsplang::SubOp::inferShapes() { getResult().setType(getLhs().getType()); }
+
+//===----------------------------------------------------------------------===//
+// MinOp
+//===----------------------------------------------------------------------===//
+void dsplang::MinOp::build(mlir::OpBuilder &builder,
+                           mlir::OperationState &state, mlir::Value lhs,
+                           mlir::Value rhs) {
+  auto rhsType = mlir::cast<TensorType>(rhs.getType());
+  state.addTypes(UnrankedTensorType::get(rhsType.getElementType()));
+  state.addOperands({lhs, rhs});
+}
+
+mlir::ParseResult dsplang::MinOp::parse(mlir::OpAsmParser &parser,
+                                        mlir::OperationState &result) {
+  return parseBinaryOp(parser, result);
+}
+
+void dsplang::MinOp::print(mlir::OpAsmPrinter &p) { printBinaryOp(p, *this); }
+
+/// Infer the output shape of the MinOp, this is required by the shape inference
+/// interface.
+void dsplang::MinOp::inferShapes() { getResult().setType(getLhs().getType()); }
+
+//===----------------------------------------------------------------------===//
+// MaxOp
+//===----------------------------------------------------------------------===//
+void dsplang::MaxOp::build(mlir::OpBuilder &builder,
+                           mlir::OperationState &state, mlir::Value lhs,
+                           mlir::Value rhs) {
+  auto rhsType = mlir::cast<TensorType>(rhs.getType());
+  state.addTypes(UnrankedTensorType::get(rhsType.getElementType()));
+  state.addOperands({lhs, rhs});
+}
+
+mlir::ParseResult dsplang::MaxOp::parse(mlir::OpAsmParser &parser,
+                                        mlir::OperationState &result) {
+  return parseBinaryOp(parser, result);
+}
+
+void dsplang::MaxOp::print(mlir::OpAsmPrinter &p) { printBinaryOp(p, *this); }
+
+/// Infer the output shape of the MaxOp, this is required by the shape inference
+/// interface.
+void dsplang::MaxOp::inferShapes() { getResult().setType(getLhs().getType()); }
+
+//===----------------------------------------------------------------------===//
+// AbsOp
+//===----------------------------------------------------------------------===//
+void dsplang::AbsOp::build(mlir::OpBuilder &builder,
+                           mlir::OperationState &state, mlir::Value input) {
+  auto inputType = mlir::cast<TensorType>(input.getType());
+  state.addTypes(UnrankedTensorType::get(inputType.getElementType()));
+  state.addOperands(input);
+}
+
+mlir::ParseResult dsplang::AbsOp::parse(mlir::OpAsmParser &parser,
+                                        mlir::OperationState &result) {
+  return parseUnaryOp(parser, result);
+}
+
+void dsplang::AbsOp::print(mlir::OpAsmPrinter &p) { printUnaryOp(p, *this); }
+
+/// Infer the output shape of the AbsOp, this is required by the shape inference
+/// interface.
+void dsplang::AbsOp::inferShapes() {
+  getResult().setType(getInput().getType());
+}
 
 //===----------------------------------------------------------------------===//
 // ReturnOp

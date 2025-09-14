@@ -438,11 +438,23 @@ private:
     }
 
     if (callee == "zero") {
-
+      // if (call.getArgs().size() != 0) {
+      //   emitError(location, "'zero' takes no arguments");
+      //   return nullptr;
+      // }
+      // return builder.create<dsplang::ZeroOp>(location, getType(VarType{}));
     } else if (callee == "min") {
-
+      if (call.getArgs().size() != 2) {
+        emitError(location, "'min' expects two arguments");
+        return nullptr;
+      }
+      return builder.create<dsplang::MinOp>(location, operands[0], operands[1]);
     } else if (callee == "max") {
-
+      if (call.getArgs().size() != 2) {
+        emitError(location, "'max' expects two arguments");
+        return nullptr;
+      }
+      return builder.create<dsplang::MaxOp>(location, operands[0], operands[1]);
     } else if (callee == "abs") {
     }
 
