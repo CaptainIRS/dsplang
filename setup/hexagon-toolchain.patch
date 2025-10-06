@@ -1,17 +1,17 @@
-From 79dbd62b92a808a365faf1629b2c9893133589fe Mon Sep 17 00:00:00 2001
+From 62aed20ca51b768f679d58a92255a92375d186fb Mon Sep 17 00:00:00 2001
 From: CaptainIRS <36656347+CaptainIRS@users.noreply.github.com>
-Date: Wed, 17 Sep 2025 22:35:29 +0530
+Date: Mon, 6 Oct 2025 21:06:10 +0530
 Subject: [PATCH] Apply patch
 
 ---
- build-toolchain.sh | 17 +++++++++++------
+ build-toolchain.sh | 19 +++++++++++++------
  build.sh           | 25 +++++++++++++++++++++++++
  get-src-repos.sh   |  8 ++++----
- 3 files changed, 40 insertions(+), 10 deletions(-)
+ 3 files changed, 42 insertions(+), 10 deletions(-)
  create mode 100755 build.sh
 
 diff --git a/build-toolchain.sh b/build-toolchain.sh
-index 6b5b1e1..6ea106b 100755
+index 6b5b1e1..c2dc28f 100755
 --- a/build-toolchain.sh
 +++ b/build-toolchain.sh
 @@ -39,7 +39,8 @@ build_llvm_clang_cross() {
@@ -76,6 +76,15 @@ index 6b5b1e1..6ea106b 100755
  
  # Workaround, 'C()' macro results in switch over bool:
  MUSL_CFLAGS="${MUSL_CFLAGS} -Wno-switch-bool"
+@@ -371,6 +376,8 @@ python3.8 --version
+ 
+ build_llvm_clang
+ 
++CROSS_TRIPLES=""
++CROSS_TRIPLES_PIC=""
+ CROSS_ALL="${CROSS_TRIPLES} ${CROSS_TRIPLES_PIC}"
+ for t in ${CROSS_TRIPLES}
+ do
 diff --git a/build.sh b/build.sh
 new file mode 100755
 index 0000000..06dfb7f
